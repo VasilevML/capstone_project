@@ -1,0 +1,930 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Week\_6}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{ux437ux430ux433ux440ux443ux436ux430ux435ux43c-ux43eux442ux43eux431ux440ux430ux43dux43dux44bux435-id-ux43cux43eux434ux435ux43bux435ux439-ux43dux430-ux44fux43dux434ux435ux43aux441-ux43cux430ux440ux43aux435ux442ux435.}{%
+\subsubsection{Загружаем отобранные id моделей на яндекс
+маркете.}\label{ux437ux430ux433ux440ux443ux436ux430ux435ux43c-ux43eux442ux43eux431ux440ux430ux43dux43dux44bux435-id-ux43cux43eux434ux435ux43bux435ux439-ux43dux430-ux44fux43dux434ux435ux43aux441-ux43cux430ux440ux43aux435ux442ux435.}}
+
+вопрос отбора id моделей остается открытый, самы простой способ
+запросить через api топ популярных моделей на яндекс.маркете
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{model\PYZus{}ids\PYZus{}2.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{file}\PY{p}{:}
+             \PY{n}{model\PYZus{}ids} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{file}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\end{Verbatim}
+
+
+    \hypertarget{ux43aux43bux430ux441ux441-ux434ux43bux44f-ux440ux430ux431ux43eux442ux44b-ux441-ux44fux434ux43dux435ux43aux441.ux43cux430ux440ux43aux435ux442-api}{%
+\subsubsection{Класс для работы с Яднекс.маркет
+API}\label{ux43aux43bux430ux441ux441-ux434ux43bux44f-ux440ux430ux431ux43eux442ux44b-ux441-ux44fux434ux43dux435ux43aux441.ux43cux430ux440ux43aux435ux442-api}}
+
+    Создаем класс для работы с API яндекс маркета первая функция генерирует
+запрос с учетом переданной модели вторая генерирует сам запрос и
+возвращает json ответ с отзывами, на вход получает id модели и набор
+параметром: количество отзывов на одной странице; номер страницы с
+отзывами; и т. д., третья функция просто обертка для удобства.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k+kn}{import} \PY{n+nn}{requests}
+         \PY{k+kn}{import} \PY{n+nn}{json}
+         
+         
+         \PY{k}{class} \PY{n+nc}{YandexMarketContent}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+             
+           \PY{k}{class} \PY{n+nc}{NotAuthorized}\PY{p}{(}\PY{n+ne}{BaseException}\PY{p}{)}\PY{p}{:}
+             \PY{k}{pass}
+         
+           \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{o+ow}{not} \PY{n}{key}\PY{p}{:}
+               \PY{k}{raise} \PY{n}{YandexMarketContent}\PY{o}{.}\PY{n}{NotAuthorized}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{You must provide authorization key to access Yandex.Market API!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key} \PY{o}{=} \PY{n}{key}
+         
+           \PY{k}{def} \PY{n+nf}{\PYZus{}make\PYZus{}opinions\PYZus{}url}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.content.market.yandex.ru/v2/models/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n}{model} \PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/opinions/}\PY{l+s+s1}{\PYZsq{}}
+         
+           \PY{k}{def} \PY{n+nf}{\PYZus{}make\PYZus{}request}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+             \PY{n}{url} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}make\PYZus{}opinions\PYZus{}url}\PY{p}{(}\PY{n}{model}\PY{p}{)}
+             \PY{n}{query\PYZus{}params} \PY{o}{=} \PY{n}{params}
+             \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Authorization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key}
+         
+             \PY{n}{response} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{params}\PY{o}{=}\PY{n}{params}\PY{p}{,} \PY{n}{headers}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Authorization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accept}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*/*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{output} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{loads}\PY{p}{(}\PY{n}{response}\PY{o}{.}\PY{n}{content}\PY{p}{)}
+             \PY{k}{if} \PY{n}{response}\PY{o}{.}\PY{n}{status\PYZus{}code} \PY{o}{==} \PY{l+m+mi}{401}\PY{p}{:}
+               \PY{n}{server\PYZus{}response} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+               \PY{k}{for} \PY{n}{error} \PY{o+ow}{in} \PY{n}{output}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{errors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{server\PYZus{}response}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{error}\PY{p}{)}
+               \PY{k}{raise} \PY{n}{YandexMarketContent}\PY{o}{.}\PY{n}{NotAuthorized}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Your key `}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ wasn}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{t authorized at Yandex.Market API. Server response: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{key}\PY{p}{,} \PY{n}{server\PYZus{}response}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{output}
+         
+           \PY{k}{def} \PY{n+nf}{req}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+             \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{columns}\PY{p}{)}
+             \PY{n}{response} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}make\PYZus{}request}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{op} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{n}{grade} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+                 \PY{k}{if} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{response}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if}  \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cons}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{op} \PY{o}{+}\PY{o}{=} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cons}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+                     \PY{k}{if} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pros}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{op} \PY{o}{+}\PY{o}{=} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pros}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+                     \PY{k}{if} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{op} \PY{o}{+}\PY{o}{=} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{continue}
+                 \PY{n}{grade} \PY{o}{=} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{df\PYZus{}temp} \PY{o}{=} \PY{n}{df\PYZus{}temp}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{op}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{grade}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{k}{return} \PY{n}{df\PYZus{}temp}
+\end{Verbatim}
+
+
+    Нас интересуют поля cons, pros, text и grade из полей cons, pros и text
+формируем отзыв, а grade - оценка по пятибальной шкале
+
+    \hypertarget{ux444ux43eux440ux43cux438ux440ux43eux432ux430ux43dux438ux435-dataseta-ux43eux442ux437ux44bux432ux43eux432}{%
+\subsubsection{Формирование dataset'a
+отзывов}\label{ux444ux43eux440ux43cux438ux440ux43eux432ux430ux43dux438ux435-dataseta-ux43eux442ux437ux44bux432ux43eux432}}
+
+    создаем объект с полученным api ключом
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{api} \PY{o}{=} \PY{n}{YandexMarketContent}\PY{p}{(}\PY{n}{key}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{8e85dd1c\PYZhy{}4bc5\PYZhy{}45ec\PYZhy{}a877\PYZhy{}5932f0246826}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Проходим по трем страницам отзывов каждой модели, на каждой странице 30
+отзывов Получаем по 90 отзывов на каждый id модели и сохраняем их в
+массив для дальнейшей обработки
+
+Чтобы не превышать лимит Яндекса в 10 запросов в секунду, сделаем таймер
+по одному запросу каждую секунду
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         import time
+         for i in range(1,2):
+             for model in model\PYZus{}ids:
+                 df = df.append(api.req(model, params=\PYZob{}\PYZsq{}count\PYZsq{}:30, \PYZsq{}page\PYZsq{}:i\PYZcb{}), ignore\PYZus{}index=True)
+                 time.sleep(1)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 3.45 s, sys: 79 ms, total: 3.53 s
+Wall time: 1min 15s
+
+    \end{Verbatim}
+
+    \hypertarget{ux43fux43eux441ux43cux43eux442ux440ux438ux43c-ux440ux430ux437ux43cux435ux440-ux43fux43eux43bux443ux447ux438ux432ux448ux435ux433ux43eux441ux44f-ux43cux430ux441ux441ux438ux432ux430}{%
+\paragraph{Посмотрим размер получившегося
+массива}\label{ux43fux43eux441ux43cux43eux442ux440ux438ux43c-ux440ux430ux437ux43cux435ux440-ux43fux43eux43bux443ux447ux438ux432ux448ux435ux433ux43eux441ux44f-ux43cux430ux441ux441ux438ux432ux430}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:} 4830
+\end{Verbatim}
+            
+    Сохраним получившейся набор
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}op.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Считаем данные из файла
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}op.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    все оценки 4 и 5 делаем положительными (1) оценки 3,2,1 - отрицательные
+(0) и удаляем все лишние столбцы
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    Теперь приступаем к работе с датафреймом
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                                              opinion grade
+        0  1. Нет NFC\textbackslash{}n2. Даже 32 ГБ внутренней памяти эт{\ldots}     1
+        1  Расположение датчика отпечатка пальца Батарея,{\ldots}     1
+        2  - сяоми забросили эту модель и присылают тольк{\ldots}     1
+        3  Камера оставляет желать лучшего.\textbackslash{}n По соотноше{\ldots}     1
+        4  Автономность через год активного использования{\ldots}     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 4830 entries, 0 to 4829
+Data columns (total 2 columns):
+opinion    4830 non-null object
+grade      4830 non-null object
+dtypes: object(2)
+memory usage: 75.5+ KB
+
+    \end{Verbatim}
+
+    посмотрим разделение по классам, как видно отрицательных отзывов почти в
+два раза меньше положительных
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}        opinion
+        grade         
+        0         1658
+        1         3172
+\end{Verbatim}
+            
+    Подготовим данные для обучения
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{X} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{opinion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{grade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{ux442ux435ux441ux442ux438ux440ux443ux435ux43c-ux43cux43eux434ux435ux43bux438}{%
+\subsection{Тестируем
+модели}\label{ux442ux435ux441ux442ux438ux440ux443ux435ux43c-ux43cux43eux434ux435ux43bux438}}
+
+    попробуем ``в лоб'' линейные модели
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}\PY{p}{,} \PY{n}{TfidfVectorizer}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LogisticRegression}\PY{p}{,} \PY{n}{SGDClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{,} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{LinearSVC}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{MultinomialNB}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{model} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score std: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy:  0.8103462275339588
+Score std:  0.014237645897366927
+
+    \end{Verbatim}
+
+    Точность: 0.8103462275339588
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{model\PYZus{}2} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}2} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model\PYZus{}2}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}2}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score std: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}2}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score mean:  0.8031032755116152
+Score std:  0.006596645293570202
+
+    \end{Verbatim}
+
+    Точность: 0.8031032755116152
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{model\PYZus{}3} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}3} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model\PYZus{}3}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}3}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score std: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}3}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score mean:  0.8033094553237229
+Score std:  0.01799713670299746
+
+    \end{Verbatim}
+
+    Точность: 0.8033094553237229
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{model\PYZus{}4} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}4} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model\PYZus{}4}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}4}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score std: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}4}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score mean:  0.7697594115503857
+Score std:  0.01895462929628957
+
+    \end{Verbatim}
+
+    Точность: 0.7697594115503857
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{model\PYZus{}5} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LSVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}5} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model\PYZus{}5}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}5}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score std: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}5}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score mean:  0.7881831403167506
+Score std:  0.025756548582510863
+
+    \end{Verbatim}
+
+    Точность: 0.7881831403167506
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{model\PYZus{}6} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SGD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{SGDClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}6} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model\PYZus{}6}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}6}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score std: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}6}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/stochastic\_gradient.py:144: FutureWarning: max\_iter and tol parameters have been added in SGDClassifier in 0.19. If both are left unset, they default to max\_iter=5 and tol=None. If tol is not None, max\_iter defaults to max\_iter=1000. From 0.21, default max\_iter will be 1000, and default tol will be 1e-3.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score mean:  0.7830137976784894
+Score std:  0.016387130134625713
+
+    \end{Verbatim}
+
+    Точность: 0.7830137976784894
+
+    Попробуем с n-граммами
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{model\PYZus{}7} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}7} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model\PYZus{}7}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy with bigrams: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}7}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy with bigrams:  0.8178043646383056
+
+    \end{Verbatim}
+
+    Точность: 0.8178043646383056
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{model\PYZus{}8} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vect}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+         \PY{p}{]}\PY{p}{)}
+         \PY{n}{score\PYZus{}8} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{model\PYZus{}8}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy with bigrams: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{score\PYZus{}8}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/logistic.py:432: FutureWarning: Default solver will be changed to 'lbfgs' in 0.22. Specify a solver to silence this warning.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy with bigrams:  0.814077868006124
+
+    \end{Verbatim}
+
+    Точность: 0.814077868006124
+
+    \#\# GridSearch для формирования финальной модели
+
+    выберем из двух наиболее точных пайплайнов с помощью gridsearch
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{pipe} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{[}
+             \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{SGDClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer\PYZus{}\PYZus{}min\PYZus{}df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer\PYZus{}\PYZus{}analyzer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{char\PYZus{}wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,}
+             \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{SGDClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer\PYZus{}\PYZus{}min\PYZus{}df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer\PYZus{}\PYZus{}analyzer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{char\PYZus{}wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+         \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         grid.fit(X, y)
+         print(grid.best\PYZus{}params\PYZus{})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'classifier': SGDClassifier(alpha=0.0001, average=False, class\_weight=None,
+       early\_stopping=False, epsilon=0.1, eta0=0.0, fit\_intercept=True,
+       l1\_ratio=0.15, learning\_rate='optimal', loss='hinge', max\_iter=None,
+       n\_iter=None, n\_iter\_no\_change=5, n\_jobs=None, penalty='l2',
+       power\_t=0.5, random\_state=None, shuffle=True, tol=None,
+       validation\_fraction=0.1, verbose=0, warm\_start=False), 'vectorizer': TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+        dtype=<class 'numpy.float64'>, encoding='utf-8', input='content',
+        lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+        ngram\_range=(1, 2), norm='l2', preprocessor=None, smooth\_idf=True,
+        stop\_words=None, strip\_accents=None, sublinear\_tf=False,
+        token\_pattern='(?u)\textbackslash{}\textbackslash{}b\textbackslash{}\textbackslash{}w\textbackslash{}\textbackslash{}w+\textbackslash{}\textbackslash{}b', tokenizer=None, use\_idf=True,
+        vocabulary=None), 'vectorizer\_\_analyzer': 'word', 'vectorizer\_\_min\_df': 1, 'vectorizer\_\_ngram\_range': (1, 2)\}
+CPU times: user 6.8 s, sys: 1.17 s, total: 7.97 s
+Wall time: 16min 18s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/stochastic\_gradient.py:144: FutureWarning: max\_iter and tol parameters have been added in SGDClassifier in 0.19. If both are left unset, they default to max\_iter=5 and tol=None. If tol is not None, max\_iter defaults to max\_iter=1000. From 0.21, default max\_iter will be 1000, and default tol will be 1e-3.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.8372670807453416
+
+    \end{Verbatim}
+
+    Наилучший результат у SGDClassifier + TfidfVectorizer с биграммами
+\#\#\#\#\# Точность: 0.8372670807453416
+
+    Попробуем подобрать альфа у классификатора
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{[}
+             \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{balanced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{,} 
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorizer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{classifier\PYZus{}\PYZus{}alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipe}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         grid.fit(X, y)
+         print(grid.best\PYZus{}params\PYZus{})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'classifier': SGDClassifier(alpha=0.0001, average=False, class\_weight='balanced',
+       early\_stopping=False, epsilon=0.1, eta0=0.0, fit\_intercept=True,
+       l1\_ratio=0.15, learning\_rate='optimal', loss='hinge', max\_iter=None,
+       n\_iter=None, n\_iter\_no\_change=5, n\_jobs=None, penalty='l2',
+       power\_t=0.5, random\_state=None, shuffle=True, tol=None,
+       validation\_fraction=0.1, verbose=0, warm\_start=False), 'classifier\_\_alpha': 0.0001, 'vectorizer': TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+        dtype=<class 'numpy.float64'>, encoding='utf-8', input='content',
+        lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+        ngram\_range=(1, 2), norm='l2', preprocessor=None, smooth\_idf=True,
+        stop\_words=None, strip\_accents=None, sublinear\_tf=False,
+        token\_pattern='(?u)\textbackslash{}\textbackslash{}b\textbackslash{}\textbackslash{}w\textbackslash{}\textbackslash{}w+\textbackslash{}\textbackslash{}b', tokenizer=None, use\_idf=True,
+        vocabulary=None)\}
+CPU times: user 2.42 s, sys: 74.3 ms, total: 2.49 s
+Wall time: 27.7 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/stochastic\_gradient.py:144: FutureWarning: max\_iter and tol parameters have been added in SGDClassifier in 0.19. If both are left unset, they default to max\_iter=5 and tol=None. If tol is not None, max\_iter defaults to max\_iter=1000. From 0.21, default max\_iter will be 1000, and default tol will be 1e-3.
+  FutureWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.8360248447204969
+
+    \end{Verbatim}
+
+    получились стандартные параметры и такая же точность
+
+    \hypertarget{ux441ux43eux445ux440ux430ux43dux44fux435ux43c-ux434ux43bux44f-ux434ux430ux43bux44cux43dux435ux439ux448ux435ux433ux43e-ux438ux441ux43fux43eux43bux44cux437ux43eux432ux430ux43dux438ux44f}{%
+\subsection{Сохраняем для дальнейшего
+использования}\label{ux441ux43eux445ux440ux430ux43dux44fux435ux43c-ux434ux43bux44f-ux434ux430ux43bux44cux43dux435ux439ux448ux435ux433ux43e-ux438ux441ux43fux43eux43bux44cux437ux43eux432ux430ux43dux438ux44f}}
+
+    Сохрним модель для дальнейшего использования в веб прототипе
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{model} \PY{o}{=} \PY{n}{SGDClassifier}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{class\PYZus{}weight}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{balanced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{n}{early\PYZus{}stopping}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{epsilon}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{eta0}\PY{o}{=}\PY{l+m+mf}{0.0}\PY{p}{,} \PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                \PY{n}{l1\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.15}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{optimal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hinge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                \PY{n}{n\PYZus{}iter}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{n\PYZus{}iter\PYZus{}no\PYZus{}change}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{penalty}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                \PY{n}{power\PYZus{}t}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{tol}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                \PY{n}{validation\PYZus{}fraction}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{warm\PYZus{}start}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{vectorizer} \PY{o}{=} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{analyzer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{binary}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{decode\PYZus{}error}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{strict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{input}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{content}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                 \PY{n}{lowercase}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{max\PYZus{}df}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                 \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{norm}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{l2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{preprocessor}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{smooth\PYZus{}idf}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{strip\PYZus{}accents}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{sublinear\PYZus{}tf}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                 \PY{n}{token\PYZus{}pattern}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(?u)}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{b}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{w}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{w+}\PY{l+s+se}{\PYZbs{}\PYZbs{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tokenizer}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{use\PYZus{}idf}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{vocabulary}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{X\PYZus{}train} \PY{o}{=}\PY{n}{vectorizer}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)} 
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.7/site-packages/sklearn/linear\_model/stochastic\_gradient.py:144: FutureWarning: max\_iter and tol parameters have been added in SGDClassifier in 0.19. If both are left unset, they default to max\_iter=5 and tol=None. If tol is not None, max\_iter defaults to max\_iter=1000. From 0.21, default max\_iter will be 1000, and default tol will be 1e-3.
+  FutureWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} SGDClassifier(alpha=0.0001, average=False, class\_weight='balanced',
+                early\_stopping=False, epsilon=0.1, eta0=0.0, fit\_intercept=True,
+                l1\_ratio=0.15, learning\_rate='optimal', loss='hinge', max\_iter=None,
+                n\_iter=None, n\_iter\_no\_change=5, n\_jobs=None, penalty='l2',
+                power\_t=0.5, random\_state=None, shuffle=True, tol=None,
+                validation\_fraction=0.1, verbose=0, warm\_start=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{import} \PY{n+nn}{\PYZus{}pickle} \PY{k}{as} \PY{n+nn}{cPickle}
+         \PY{c+c1}{\PYZsh{} save the classifier}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SGD.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fid}\PY{p}{:}
+             \PY{n}{cPickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{fid}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tfidf.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{fid}\PY{p}{:}
+             \PY{n}{cPickle}\PY{o}{.}\PY{n}{dump}\PY{p}{(}\PY{n}{vectorizer}\PY{p}{,} \PY{n}{fid}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \hypertarget{ux43fux440ux435ux434ux441ux43aux430ux437ux44bux432ux430ux435ux43c-ux438-ux437ux430ux43fux438ux441ux44bux432ux430ux435ux43c-ux432-ux444ux430ux439ux43b}{%
+\subsection{Предсказываем и записываем в
+файл}\label{ux43fux440ux435ux434ux441ux43aux430ux437ux44bux432ux430ux435ux43c-ux438-ux437ux430ux43fux438ux441ux44bux432ux430ux435ux43c-ux432-ux444ux430ux439ux43b}}
+
+    Разбираем файл с тестовым набором
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{data} \PY{o}{=} \PY{n}{f}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+        \PY{n}{test\PYZus{}op} \PY{o}{=} \PY{p}{[}\PY{n}{r}\PY{o}{.}\PY{n}{text} \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{bs4}\PY{o}{.}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lxml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{find\PYZus{}all}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{review}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    Предсказываем значения и записываем в файл
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{out} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}op}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{out}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Id}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{out}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neg}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{p}{(}\PY{n}{x}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pos}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{out}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{subm.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
